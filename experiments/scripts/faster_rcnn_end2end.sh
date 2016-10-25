@@ -1,7 +1,7 @@
 #!/bin/bash
 # Usage:
 # ./experiments/scripts/faster_rcnn_end2end.sh GPU NET DATASET [options args to {train,test}_net.py]
-# DATASET is either pascal_voc or coco.
+# DATASET is either pascal_voc or coco or nectarines.
 #
 # Example:
 # ./experiments/scripts/faster_rcnn_end2end.sh 0 VGG_CNN_M_1024 pascal_voc \
@@ -23,6 +23,12 @@ EXTRA_ARGS=${array[@]:3:$len}
 EXTRA_ARGS_SLUG=${EXTRA_ARGS// /_}
 
 case $DATASET in
+  nectarines)
+    TRAIN_IMDB="nectarines_trainval"
+    TEST_IMDB="nectarines_test"
+    PT_DIR="nectarines"
+    ITERS=6000
+    ;;
   pascal_voc)
     TRAIN_IMDB="voc_2007_trainval"
     TEST_IMDB="voc_2007_test"
