@@ -34,7 +34,7 @@ for year in ['2015']:
 
 # Set up nectarine_<split>
 for split in ['train', 'val', 'trainval', 'test']:
-    name = 'nectarine_{}'.format(split)
+    name = 'nectarines_{}'.format(split)
     __sets[name] = (lambda split=split: nectarines(split))
 
 def get_imdb(name):
