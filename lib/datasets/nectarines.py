@@ -15,7 +15,7 @@ import uuid
 from voc_eval import voc_eval
 from fast_rcnn.config import cfg
 
-class nectarine(imdb):
+class nectarines(imdb):
     def __init__(self, image_set, year, data_path=None):
         imdb.__init__(self, 'nectarine_' + image_set)
         self._year = 2007 ## IVAN: fixing that here as some if uses that to decide what to execute
