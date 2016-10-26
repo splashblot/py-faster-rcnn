@@ -219,9 +219,11 @@ def save_detections(im, class_name, dets, imgName, outputDir, thresh=0.3):
                               edgecolor='g', linewidth=3)
                 )
             plt.title('{}  {:.3f}'.format(class_name, score))
+            (ignore, filename) = os.path.split(imgName)
+            outfile = os.path.join(outputDir, filename)
             if not os.path.isdir(outputDir):
                 os.makedirs(outputDir)
-            plt.savefig(os.path.join(outputDir, imgName))
+            plt.savefig(os.path.join(outputDir, filename))
 
 def save_detections2(im, class_name, dets, imgName, outputDir, thresh=0.3):
     """Draw detected bounding boxes."""
@@ -254,7 +256,9 @@ def save_detections2(im, class_name, dets, imgName, outputDir, thresh=0.3):
                   fontsize=14)
     plt.axis('off')
     plt.tight_layout()
-    outfile = os.path.join(outputDir, imgName)
+
+    (ignore, filename) = os.path.split(imgName)
+    outfile = os.path.join(outputDir, filename)
     if not os.path.isdir(outputDir):
         os.makedirs(outputDir)
     print "Saving test image with boxes in {}".format(outfile)
