@@ -80,6 +80,9 @@ class nectarines(imdb):
         """
         return os.path.join(cfg.DATA_DIR, 'nectarines')
 
+    def get_test_output_images_path(self):
+        return os.path.join(self._get_default_path(), "resultant-test-images")
+
     def gt_roidb(self):
         """
         Return the database of ground-truth regions of interest.

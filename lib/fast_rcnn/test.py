@@ -202,6 +202,28 @@ def vis_detections(im, class_name, dets, thresh=0.3):
             plt.title('{}  {:.3f}'.format(class_name, score))
             plt.show()
 
+def save_detections(im, class_name, dets, imgName, outputDir, thresh=0.3):
+    """Visual debugging of detections."""
+    import matplotlib.pyplot as plt
+    im = im[:, :, (2, 1, 0)]
+    for i in xrange(np.minimum(10, dets.shape[0])):
+        bbox = dets[i, :4]
+        score = dets[i, -1]
+        if score > thresh:
+            plt.cla()
+            plt.imshow(im)
+            plt.gca().add_patch(
+                plt.Rectangle((bbox[0], bbox[1]),
+                              bbox[2] - bbox[0],
+                              bbox[3] - bbox[1], fill=False,
+                              edgecolor='g', linewidth=3)
+                )
+            plt.title('{}  {:.3f}'.format(class_name, score))
+            if not os.path.isdir(outputDir):
+                os.makedirs(outputDir)
+            plt.savefig(os.path.join(outputDir, imgName))
+
+
 def apply_nms(all_boxes, thresh):
     """Apply non-maximum suppression to all predicted boxes output by the
     test_net method.
@@ -224,7 +246,7 @@ def apply_nms(all_boxes, thresh):
             nms_boxes[cls_ind][im_ind] = dets[keep, :].copy()
     return nms_boxes
 
-def test_net(net, imdb, max_per_image=100, thresh=0.05, vis=False):
+def test_net(net, imdb, max_per_image=100, thresh=0.05, vis=False, saveImgs=False):
     """Test a Fast R-CNN network on an image database."""
     num_images = len(imdb.image_index)
     # all detections are collected into:
@@ -270,6 +292,8 @@ def test_net(net, imdb, max_per_image=100, thresh=0.05, vis=False):
             cls_dets = cls_dets[keep, :]
             if vis:
                 vis_detections(im, imdb.classes[j], cls_dets)
+            if saveImgs:
+                save_detections(im, imdb.classes[j], imdb.image_path_at(i), imdb.get_test_output_images_path(), cls_dets)
             all_boxes[j][i] = cls_dets
 
         # Limit to max_per_image detections *over all classes*
