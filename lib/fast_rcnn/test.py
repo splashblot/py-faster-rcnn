@@ -223,6 +223,42 @@ def save_detections(im, class_name, dets, imgName, outputDir, thresh=0.3):
                 os.makedirs(outputDir)
             plt.savefig(os.path.join(outputDir, imgName))
 
+def save_detections2(im, class_name, dets, imgName, outputDir, thresh=0.3):
+    """Draw detected bounding boxes."""
+    import matplotlib.pyplot as plt
+    inds = np.where(dets[:, -1] >= thresh)[0]
+    if len(inds) == 0:
+        return
+
+    im = im[:, :, (2, 1, 0)]
+    fig, ax = plt.subplots(figsize=(12, 12))
+    ax.imshow(im, aspect='equal')
+    for i in inds:
+        bbox = dets[i, :4]
+        score = dets[i, -1]
+
+        ax.add_patch(
+            plt.Rectangle((bbox[0], bbox[1]),
+                          bbox[2] - bbox[0],
+                          bbox[3] - bbox[1], fill=False,
+                          edgecolor='red', linewidth=3.5)
+            )
+        ax.text(bbox[0], bbox[1] - 2,
+                '{:s} {:.3f}'.format(class_name, score),
+                bbox=dict(facecolor='blue', alpha=0.5),
+                fontsize=14, color='white')
+
+    ax.set_title(('{} detections with '
+                  'p({} | box) >= {:.1f}').format(class_name, class_name,
+                                                  thresh),
+                  fontsize=14)
+    plt.axis('off')
+    plt.tight_layout()
+    outfile = os.path.join(outputDir, imgName)
+    if not os.path.isdir(outputDir):
+        os.makedirs(outputDir)
+    print "Saving test image with boxes in {}".format()
+    plt.savefig(outfile)
 
 def apply_nms(all_boxes, thresh):
     """Apply non-maximum suppression to all predicted boxes output by the
@@ -293,7 +329,7 @@ def test_net(net, imdb, max_per_image=100, thresh=0.05, vis=False, saveImgs=Fals
             if vis:
                 vis_detections(im, imdb.classes[j], cls_dets)
             if saveImgs:
-                save_detections(im, imdb.classes[j], cls_dets, imdb.image_path_at(i), imdb.get_test_output_images_path())
+                save_detections2(im, imdb.classes[j], cls_dets, imdb.image_path_at(i), imdb.get_test_output_images_path())
             all_boxes[j][i] = cls_dets
 
         # Limit to max_per_image detections *over all classes*
