@@ -293,7 +293,7 @@ def test_net(net, imdb, max_per_image=100, thresh=0.05, vis=False, saveImgs=Fals
             if vis:
                 vis_detections(im, imdb.classes[j], cls_dets)
             if saveImgs:
-                save_detections(im, imdb.classes[j], imdb.image_path_at(i), imdb.get_test_output_images_path(), cls_dets)
+                save_detections(im, imdb.classes[j], cls_dets, imdb.image_path_at(i), imdb.get_test_output_images_path())
             all_boxes[j][i] = cls_dets
 
         # Limit to max_per_image detections *over all classes*
