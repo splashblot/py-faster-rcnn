@@ -257,7 +257,7 @@ def save_detections2(im, class_name, dets, imgName, outputDir, thresh=0.3):
     outfile = os.path.join(outputDir, imgName)
     if not os.path.isdir(outputDir):
         os.makedirs(outputDir)
-    print "Saving test image with boxes in {}".format()
+    print "Saving test image with boxes in {}".format(outfile)
     plt.savefig(outfile)
 
 def apply_nms(all_boxes, thresh):
