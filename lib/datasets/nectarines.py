@@ -224,7 +224,7 @@ class nectarines(imdb):
         dir = os.path.join(
             self._devkit_path,
             'results',
-            'nectarine',
+            'nectarines',
             'Main')
         if not os.path.isdir(dir):
             os.makedirs(dir)
@@ -254,12 +254,10 @@ class nectarines(imdb):
     def _do_python_eval(self, output_dir = 'output'):
         annopath = os.path.join(
             self._devkit_path,
-            'nectarine',
             'Annotations',
             '{:s}.xml')
         imagesetfile = os.path.join(
             self._devkit_path,
-            'nectarine',
             'ImageSets',
             'Main',
             self._image_set + '.txt')
