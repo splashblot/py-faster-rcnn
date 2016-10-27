@@ -247,11 +247,11 @@ def save_detections2(im, class_name, dets, imgName, outputDir, thresh=0.3):
             )
         ax.text(bbox[0], bbox[1] - 2,
                 '{:s} {:.3f}'.format(class_name, score),
-                bbox=dict(facecolor='blue', alpha=0.5),
-                fontsize=14, color='white')
+                bbox=dict(facecolor='blue', alpha=0.3),
+                fontsize=10, color='white')
 
-    ax.set_title(('{} detections with '
-                  'p({} | box) >= {:.1f}').format(class_name, class_name,
+    ax.set_title(('{} {} detections with '
+                  'p({} | box) >= {:.1f}').format(len(inds), class_name, class_name,
                                                   thresh),
                   fontsize=14)
     plt.axis('off')
