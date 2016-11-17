@@ -1,4 +1,4 @@
 [submodule "caffe-fast-rcnn"]
 	path = caffe-fast-rcnn
-	url = git@github.com:splashblot/caffe-fast-rcnn.git
+	url = https://github.com/splashblot/caffe-fast-rcnn.git
 	branch = splashblot
