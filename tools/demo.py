@@ -125,6 +125,8 @@ if __name__ == '__main__':
         raise IOError(('{:s} not found.\nDid you run ./data/script/'
                        'fetch_faster_rcnn_models.sh?').format(caffemodel))
 
+
+
     if args.cpu_mode:
         caffe.set_mode_cpu()
     else:
