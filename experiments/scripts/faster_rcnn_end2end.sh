@@ -29,6 +29,12 @@ case $DATASET in
     PT_DIR="nectarines"
     ITERS=18000
     ;;
+  cherries)
+    TRAIN_IMDB="cherries_trainval"
+    TEST_IMDB="cherries_test"
+    PT_DIR="cherries"
+    ITERS=6000
+    ;;
   pascal_voc)
     TRAIN_IMDB="voc_2007_trainval"
     TEST_IMDB="voc_2007_test"
