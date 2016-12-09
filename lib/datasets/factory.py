@@ -12,6 +12,7 @@ __sets = {}
 from datasets.pascal_voc import pascal_voc
 from datasets.coco import coco
 from datasets.nectarines import nectarines
+from datasets.cherries import cherries
 import numpy as np
 
 # Set up voc_<year>_<split> using selective search "fast" mode
@@ -36,6 +37,11 @@ for year in ['2015']:
 for split in ['train', 'val', 'trainval', 'test']:
     name = 'nectarines_{}'.format(split)
     __sets[name] = (lambda split=split: nectarines(split))
+
+# Set up nectarine_<split>
+for split in ['train', 'val', 'trainval', 'test']:
+    name = 'cherries_{}'.format(split)
+    __sets[name] = (lambda split=split: cherries(split))
 
 def get_imdb(name):
     """Get an imdb (image database) by name."""
