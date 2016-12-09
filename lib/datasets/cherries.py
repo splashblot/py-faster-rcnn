@@ -17,7 +17,7 @@ from fast_rcnn.config import cfg
 
 class cherries(imdb):
     def __init__(self, image_set, data_path=None):
-        imdb.__init__(self, 'nectarine_' + image_set)
+        imdb.__init__(self, 'cherry_' + image_set)
         self._year = 2007 ## IVAN: fixing that here as some if uses that to decide what to execute
         self._image_set = image_set
         self._devkit_path = self._get_default_path() if data_path is None \
