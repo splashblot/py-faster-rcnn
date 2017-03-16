@@ -52,12 +52,12 @@ def save_detections2(im, class_name, dets, imgName, outputDir, thresh=0.3):
             plt.Rectangle((bbox[0], bbox[1]),
                           bbox[2] - bbox[0],
                           bbox[3] - bbox[1], fill=False,
-                          edgecolor='red', linewidth=3.5)
+                          edgecolor='red', linewidth=1)
             )
-        ax.text(bbox[0], bbox[1] - 2,
-                '{:s} {:.3f}'.format(class_name, score),
-                bbox=dict(facecolor='blue', alpha=0.3),
-                fontsize=10, color='white')
+#        ax.text(bbox[0], bbox[1] - 2,
+#                '{:s} {:.3f}'.format(class_name, score),
+#                bbox=dict(facecolor='blue', alpha=0.3),
+#                fontsize=10, color='white')
 
     ax.set_title(('{} {} detections with '
                   'p({} | box) >= {:.1f}').format(len(inds), class_name, class_name,
@@ -118,8 +118,7 @@ def process_image(net, im_file, outfolder):
     timer.tic()
     scores, boxes = im_detect(net, im)
     timer.toc()
-    print ('Detection took {:.3f}s for '
-           '{:d} object proposals').format(timer.total_time, boxes.shape[0])
+    print ('Detection took {:.3f}s for {:d} object proposals'.format(timer.total_time, boxes.shape[0]))
 
     # Visualize detections for each class
     CONF_THRESH = 0.5
@@ -207,13 +206,13 @@ def parse_args():
                         action='store_true')
     parser.add_argument('--net', dest='caffemodel',
                         help='model to test',
-                        default=None, type=str)
+                        type=str, required=True)
     parser.add_argument('--imgfolder', dest='imgfolder',
                         help='Folder with images to use for inferece',
-                        default=None, type=str)
+                        type=str, required=True)
     parser.add_argument('--outfolder', dest='outfolder',
                         help='Folder to use for storing resultant infereced images',
-                        default=None, type=str)
+                        type=str, required=True)
     parser.add_argument('--imgsetfile', dest='imgsetfile',
                         help='Use a image set file (test.txt or so) to filter for files in imgfolder.',
                         default=None, type=str)
@@ -258,7 +257,7 @@ if __name__ == '__main__':
 
     # Warmup on a dummy image
     im = 128 * np.ones((300, 500, 3), dtype=np.uint8)
-    for i in xrange(2):
+    for i in range(2):
         _, _= im_detect(net, im)
 
 
