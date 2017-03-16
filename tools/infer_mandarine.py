@@ -157,11 +157,11 @@ def rtf(ratio):
         return ratio.num / float(ratio.den)
 
 def lat(tags):
-    degrees_and_ref = map(rtf, tags['GPS GPSLatitude'].values) + [str(tags['GPS GPSLatitudeRef'].values)]
+    degrees_and_ref = list(map(rtf, tags['GPS GPSLatitude'].values)) + [str(tags['GPS GPSLatitudeRef'].values)]
     return dms2dd(*degrees_and_ref)
 
 def lon(tags):
-    degrees_and_ref = map(rtf, tags['GPS GPSLongitude'].values) + [str(tags['GPS GPSLongitudeRef'].values)]
+    degrees_and_ref = list(map(rtf, tags['GPS GPSLongitude'].values)) + [str(tags['GPS GPSLongitudeRef'].values)]
     return dms2dd(*degrees_and_ref)
 
 def exiftags(file):
@@ -176,7 +176,7 @@ def counts_to_geojson(img_folder, counts_per_image_dict):
             "type": "Feature",
             "geometry":{
                 "type":"Point",
-                "coordinates":[lat, lon]
+                "coordinates":[lon, lat]
             },
             "properties": properties_dict
         }
@@ -189,7 +189,7 @@ def counts_to_geojson(img_folder, counts_per_image_dict):
         imgpath = os.path.join(img_folder, image)
         tags = exiftags(imgpath)
         ret["features"].append(feature(
-            lat(tags), lon(tags), count,
+            lat(tags), lon(tags),
             {"image_name": image,
              "count": count}
         ))
@@ -278,6 +278,6 @@ if __name__ == '__main__':
         counts_per_image[im_name] = len(dets['mandarine'])
 
     target_geojson = os.path.join(args.outfolder, "counts.geojson")
-    print('Writing '.format(target_geojson))
+    print('Writing {}'.format(target_geojson))
     with open(target_geojson, "w") as text_file:
         text_file.write(counts_to_geojson(args.imgfolder, counts_per_image))
