@@ -50,7 +50,7 @@ def from_dets(imdb_name, output_dir, args):
         dets = pickle.load(f)
 
     if args.apply_nms:
-        print 'Applying NMS to all detections'
+        print('Applying NMS to all detections')
         nms_dets = apply_nms(dets, cfg.TEST.NMS)
     else:
         nms_dets = dets

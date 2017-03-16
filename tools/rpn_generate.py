@@ -88,4 +88,4 @@ if __name__ == '__main__':
     rpn_file = os.path.join(output_dir, net.name + '_rpn_proposals.pkl')
     with open(rpn_file, 'wb') as f:
         pickle.dump(imdb_boxes, f, pickle.HIGHEST_PROTOCOL)
-    print 'Wrote RPN proposals to {}'.format(rpn_file)
+    print('Wrote RPN proposals to {}'.format(rpn_file))

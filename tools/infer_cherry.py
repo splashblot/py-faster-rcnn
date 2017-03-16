@@ -68,7 +68,7 @@ def save_detections2(im, class_name, dets, imgName, outputDir, thresh=0.3):
     outfile = os.path.join(outputDir, filename)
     if not os.path.isdir(outputDir):
         os.makedirs(outputDir)
-    print "Saving test image with boxes in {}".format(outfile)
+    print("Saving test image with boxes in {}".format(outfile))
     plt.savefig(outfile)
     plt.close()
 
@@ -189,7 +189,7 @@ if __name__ == '__main__':
         cfg.GPU_ID = args.gpu_id
     net = caffe.Net(prototxt, caffemodel, caffe.TEST)
 
-    print '\n\nLoaded network {:s}'.format(caffemodel)
+    print('\n\nLoaded network {:s}'.format(caffemodel))
 
     # Warmup on a dummy image
     im = 128 * np.ones((300, 500, 3), dtype=np.uint8)
