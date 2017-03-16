@@ -6,7 +6,7 @@
 # --------------------------------------------------------
 
 """Test a Fast R-CNN network on an imdb (image database)."""
-import cPickle
+import pickle
 
 from fast_rcnn.config import cfg, get_output_dir
 from fast_rcnn.bbox_transform import clip_boxes, bbox_transform_inv
@@ -354,7 +354,7 @@ def test_net(net, imdb, max_per_image=100, thresh=0.05, vis=False, saveImgs=Fals
 
     det_file = os.path.join(output_dir, 'detections.pkl')
     with open(det_file, 'wb') as f:
-        cPickle.dump(all_boxes, f, cPickle.HIGHEST_PROTOCOL)
+        pickle.dump(all_boxes, f, pickle.HIGHEST_PROTOCOL)
 
     print('Evaluating detections')
     imdb.evaluate_detections(all_boxes, output_dir)
