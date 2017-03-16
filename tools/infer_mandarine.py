@@ -132,7 +132,7 @@ def process_image(net, im_file, outfolder):
                           cls_scores[:, np.newaxis])).astype(np.float32)
         keep = nms(dets, NMS_THRESH)
         dets = dets[keep, :]
-        all_dets[cls] = dets
+        all_dets[cls] = dets[np.where(dets[:, -1] >= CONF_THRESH)[0],:]
         save_detections2(im, cls, dets, im_file, outfolder, thresh=CONF_THRESH)
 
     return all_dets
