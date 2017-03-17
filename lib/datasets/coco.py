@@ -76,7 +76,7 @@ class coco(imdb):
         }
         coco_name = image_set + year  # e.g., "val2014"
         self._data_name = (self._view_map[coco_name]
-                           if self._view_map.has_key(coco_name)
+                           if coco_name in self._view_map
                            else coco_name)
         # Dataset splits that have ground-truth annotations (test splits
         # do not have gt annotations)
