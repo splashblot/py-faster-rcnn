@@ -112,11 +112,12 @@ def voc_eval(detpath,
                     i + 1, len(imagenames)))
         # save
         print('Saving cached annotations to {:s}'.format(cachefile))
-        with open(cachefile, 'w') as f:
+        with open(cachefile, 'wb') as f:
             pickle.dump(recs, f)
     else:
         # load
-        with open(cachefile, 'r') as f:
+        print('Loading cached annotations from {:s}'.format(cachefile))
+        with open(cachefile, 'rb') as f:
             recs = pickle.load(f)
 
     # extract gt objects for this class
